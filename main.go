@@ -3,6 +3,7 @@ import (
     "github.com/labstack/echo/v4"
     "github.com/labstack/echo-contrib/prometheus"
     "net/http"
+    "strconv"
 )
 func main() {
     e := echo.New()
@@ -10,6 +11,12 @@ func main() {
     e.GET("/users/:name", func(c echo.Context) error {
         name := c.Param("name")
         return c.String(http.StatusOK, name)
+    })
+
+    e.GET("/status/:status", func(c echo.Context) error {
+        status := c.Param("status")
+        y, _ := strconv.Atoi(status)
+        return c.String(y, status)
     })
 
     e.GET("/surote-cal", func(c echo.Context) error {
